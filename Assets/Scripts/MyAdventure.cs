@@ -10,11 +10,11 @@ public class MyAdventure : MonoBehaviour
         Start,
         Remenu,
         Intro,
-        Trainstop,
+        TrainStop,
         Wait1,
         Wait2,
         Wait3,
-        Boringdeath,
+        BoringDeath,
         TrainOperator1,
         TrainOperator2,
         Inspect,
@@ -29,14 +29,18 @@ public class MyAdventure : MonoBehaviour
         Q3,
         Q3A1,
         Q3A2,
-        Possesed,
-        Leave,
+        Possessed,
+        Exit1,
+        Exit2,
+        Leave1,
+        Leave2,
         Password,
         PassCorrect,
-        PassWrong
+        PassWrong,
+        Spirit
     }
 
-    private States currentState = States.start;
+    private States currentState = States.Start;
     // Start is called before the first frame update
     void Start()
     {
@@ -107,7 +111,7 @@ public class MyAdventure : MonoBehaviour
             }
 
         }
-        else if (currentState == States.Trainstop)
+        else if (currentState == States.TrainStop)
         {
             if (input == "yes")
             {
@@ -185,7 +189,7 @@ public class MyAdventure : MonoBehaviour
                 Playerdeathbored();
             }
         }
-        else if (currentState == States.Boringdeath)
+        else if (currentState == States.BoringDeath)
         {
             if (input == "restart")
             {
@@ -238,7 +242,7 @@ public class MyAdventure : MonoBehaviour
         {
             if (input == "continue")
             {
-                ghosty();
+                Ghosty();
             }
             if (input == "restart")
             {
@@ -254,7 +258,7 @@ public class MyAdventure : MonoBehaviour
         {
             if (input == "continue")
             {
-                ghosty();
+                Ghosty();
             }
             if (input == "restart")
             {
@@ -362,7 +366,7 @@ public class MyAdventure : MonoBehaviour
         {
             if (input == "leave")
             {
-                Leave();
+                Leave1();
             }
             if (input == "password")
             {
@@ -382,7 +386,7 @@ public class MyAdventure : MonoBehaviour
         {
             if (input == "continue")
             {
-                Smack2();
+                NoSmack2();
             }
             if (input == "restart")
             {
@@ -418,7 +422,7 @@ public class MyAdventure : MonoBehaviour
         {
             if (input == "leave")
             {
-                Exit();
+                Exit1();
             }
             if (input == "password")
             {
@@ -454,11 +458,11 @@ public class MyAdventure : MonoBehaviour
         {
             if (input == "leave")
             {
-                Exit();
+                Exit1();
             }
             if (input == "stay")
             {
-                Possesed();
+                Possessed();
             }
             if (input == "restart")
             {
@@ -482,11 +486,11 @@ public class MyAdventure : MonoBehaviour
             }
 
         }
-        else if (currentState == States.Password)
+        else if (currentState == States.Exit1)
         {
-            if (input == "ghost town")
+            if (input == "continue")
             {
-                PassCorrect();
+                Exit2();
             }
             if (input == "restart")
             {
@@ -496,9 +500,121 @@ public class MyAdventure : MonoBehaviour
             {
                 ReMenu();
             }
+
+        }
+        else if (currentState == States.Exit2)
+        {
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
+            }
+
+        }
+        else if (currentState == States.PassWrong)
+        {
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
+            }
+
+        }
+        else if (currentState == States.PassCorrect)
+        {
+            if (input == "continue")
+            {
+                Spirit();
+            }
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
+            }
+
+        }
+        else if (currentState == States.Leave1)
+        {
+            if (input == "continue")
+            {
+                Leave2();
+            }
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
+            }
+
+        }
+        else if (currentState == States.Leave2)
+        {
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
+            }
+
+        }
+        else if (currentState == States.Password)
+        {
+            if (input == "password")
+            {
+                PassWrong();
+            }
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
+            }
+            if (input == "ghost town")
+            {
+                PassCorrect();
+            }
             else
             {
                 PassWrong();
+            }
+
+        }
+        else if (currentState == States.Spirit)
+        {
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
+            }
+
+        }
+        else if (currentState == States.Possessed)
+        {
+            if (input == "restart")
+            {
+                StartIntro();
+            }
+            if (input == "menu")
+            {
+                ReMenu();
             }
 
         }
@@ -516,7 +632,7 @@ public class MyAdventure : MonoBehaviour
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[start]");
         Terminal.WriteLine(" ");
-        currentState = States.remenu;
+        currentState = States.Remenu;
     }
     
     
@@ -527,7 +643,7 @@ public class MyAdventure : MonoBehaviour
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[continue]");
         Terminal.WriteLine(" ");
-        currentState = States.intro;
+        currentState = States.Intro;
     }
 
     void StandStill()
@@ -537,7 +653,7 @@ public class MyAdventure : MonoBehaviour
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[yes/no]");
         Terminal.WriteLine(" ");
-        currentState = States.trainstop;
+        currentState = States.TrainStop;
     }
     
     void PlayerWait1()
@@ -547,7 +663,7 @@ public class MyAdventure : MonoBehaviour
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[continue/no]");
         Terminal.WriteLine(" ");
-        currentState = States.wait1;
+        currentState = States.Wait1;
     }
     
     void PlayerWait2()
@@ -557,7 +673,7 @@ public class MyAdventure : MonoBehaviour
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[continue/yes]");
         Terminal.WriteLine(" ");
-        currentState = States.wait2;
+        currentState = States.Wait2;
     }
     
     void PlayerWait3()
@@ -567,7 +683,7 @@ public class MyAdventure : MonoBehaviour
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[continue/yes]");
         Terminal.WriteLine(" ");
-        currentState = States.wait3;
+        currentState = States.Wait3;
     }
     
     void Playerdeathbored()
@@ -579,7 +695,7 @@ public class MyAdventure : MonoBehaviour
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[menu/restart]");
         Terminal.WriteLine(" ");
-        currentState = States.boringdeath;
+        currentState = States.BoringDeath;
     }
     void CheckOperatorA()
     {
@@ -623,7 +739,7 @@ public class MyAdventure : MonoBehaviour
         currentState = States.Run1;
     }
     
-    void ghosty()
+    void Ghosty()
     {
         Terminal.ClearScreen();
         Terminal.WriteLine("Out of nowhere, a ghost appears.");
@@ -734,7 +850,7 @@ public class MyAdventure : MonoBehaviour
     void PassWrong()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("{ghost}:'That is wrong! As a consequence for getting the password wrong, I'll posses your body, lucky you.'");
+        Terminal.WriteLine("{ghost}:'That is wrong! As a                    consequence for getting the             password wrong, I'll posses             your body, lucky you.'");
         Terminal.WriteLine(" ");
         Terminal.WriteLine(" ");
         Terminal.WriteLine("{Ending: A smack to the face}");
@@ -747,7 +863,7 @@ public class MyAdventure : MonoBehaviour
     void Password()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("{ghost}:'Alright, what is the password''");
+        Terminal.WriteLine("{ghost}:'Alright, what is the password'");
         Terminal.WriteLine(" ");
         Terminal.WriteLine("|Insert Password|");
         Terminal.WriteLine(" ");
@@ -757,54 +873,83 @@ public class MyAdventure : MonoBehaviour
     void PassCorrect()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("{ghost}:'Correct! Alright, I'll let you stay for a while. And I guess we could have a conversation. It can be quite lonely haunting a railway.''");
+        Terminal.WriteLine("{ghost}:'Correct! Alright, I'll let you         stay for a while. And I guess           we could have a conversation.           It can be quite lonely haunting         a railway.'");
         Terminal.WriteLine(" ");
-        Terminal.WriteLine(" ");
-        Terminal.WriteLine("{Ending: A smack to the face}");
-        Terminal.WriteLine(" ");
-        Terminal.WriteLine("[menu/restart]");
+        Terminal.WriteLine("[continue]");
         Terminal.WriteLine(" ");
         currentState = States.PassCorrect;
     }
     
-    void Possesed()
+    void Possessed()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("{ghost}:'That is wrong! As a consequence for getting the password wrong, I'll posses your body, lucky you.'");
+        Terminal.WriteLine("{ghost}:'Alright, you asked for it'");
+        Terminal.WriteLine("The ghost takes over your body, leavingyou as just thoughts inside your body.");
         Terminal.WriteLine(" ");
-        Terminal.WriteLine(" ");
-        Terminal.WriteLine("{Ending: A smack to the face}");
+        Terminal.WriteLine("{Ending: Not there}");
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[menu/restart]");
         Terminal.WriteLine(" ");
-        currentState = States.Q3A2;
+        currentState = States.Possessed;
     }
     
-    void Exit()
+    void Exit1()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("You deside to leave the ghost alone and leave the train. You walk for hours to get back to a station.");
-        Terminal.WriteLine("Then you remember you left all your stuff in the train, so you have nothing with you.");
+        Terminal.WriteLine("You decide to leave the ghost alone andleave the train. You walk for hours to  get back to a station. You seem to have arrived in time somehow.");
         Terminal.WriteLine(" ");
+        Terminal.WriteLine("[continue]");
         Terminal.WriteLine(" ");
-        Terminal.WriteLine("{Ending: 'Escaped'}");
-        Terminal.WriteLine(" ");
-        Terminal.WriteLine("[menu/restart]");
-        Terminal.WriteLine(" ");
-        currentState = States.Q3A2;
+        currentState = States.Exit1;
     }
     
-    void Leave()
+    void Exit2()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("{ghost}:'This isn't worth it...'");
-        Terminal.WriteLine("The ghost smacks you in the face. He   does with so much force, that you die.'");
+        Terminal.WriteLine("Then you remember you left all your    stuff in the train and have nothing withyou.");
         Terminal.WriteLine(" ");
-        Terminal.WriteLine("{Ending: A smack to the face}");
+        Terminal.WriteLine(" ");
+        Terminal.WriteLine("{Ending: You've got nothing}");
         Terminal.WriteLine(" ");
         Terminal.WriteLine("[menu/restart]");
         Terminal.WriteLine(" ");
-        currentState = States.Q3A2;
+        currentState = States.Exit1;
+    }
+    
+    void Leave1()
+    {
+        Terminal.ClearScreen();
+        Terminal.WriteLine("You decide to leave the ghost alone andleave the train. You walk for hours to  get back to a station. You seem to have arrived in time somehow.");
+        Terminal.WriteLine(" ");
+        Terminal.WriteLine("[continue]");
+        Terminal.WriteLine(" ");
+        currentState = States.Leave1;
+    }
+    
+    void Leave2()
+    {
+        Terminal.ClearScreen();
+        Terminal.WriteLine("Then you remember you left all your    stuff in the train, but somehow it has  arrived on the station.");
+        Terminal.WriteLine(" ");
+        Terminal.WriteLine(" ");
+        Terminal.WriteLine("{Ending: A bizzare  vacation}");
+        Terminal.WriteLine(" ");
+        Terminal.WriteLine("[menu/restart]");
+        Terminal.WriteLine(" ");
+        currentState = States.Leave1;
+    }
+    
+    void Spirit()
+    {
+        Terminal.ClearScreen();
+        Terminal.WriteLine("You talk a bit with the ghost, you havemultiple things in common and are very  nice to eachother. You become friends!");
+        Terminal.WriteLine("After a while its time to go. The ghostgives a tool to stay in contact with    him and sends the train to the station.");
+        Terminal.WriteLine(" ");
+        Terminal.WriteLine("{Ending: Spiritual Friend}");
+        Terminal.WriteLine(" ");
+        Terminal.WriteLine("[menu/restart]");
+        Terminal.WriteLine(" ");
+        currentState = States.Spirit;
     }
     // Update is called once per frame
     void Update()
